@@ -6,6 +6,7 @@ from html.parser import HTMLParser
 parsed_links = set()
 visited_links = set()
 
+
 def crawl_pages(page, parser):
     global parsed_links
     global visited_links
@@ -39,9 +40,12 @@ def crawl_pages(page, parser):
         with open(f"handle.txt", "a+") as f:
             f.write(str(e))
 
+
 def save_page(page, filename):
-    with urllib.request.urlopen(page) as response, open(f"{filename}.html", 'wb') as out_file:
+    with urllib.request.urlopen(page) as response, open(f"{filename}.html",
+                                                        'wb') as out_file:
         shutil.copyfileobj(response, out_file)
+
 
 class LinkExtractor(HTMLParser):
     def handle_starttag(self, tag, attrs):
@@ -50,6 +54,7 @@ class LinkExtractor(HTMLParser):
         attr = dict(attrs)
         global parsed_links
         parsed_links.add(attr.get('href', 'link not available'))
+
 
 if __name__ == "__main__":
     url = "https://eclipse-phase.wikispaces.com/"
