@@ -16,9 +16,12 @@ def crawl_pages(page):
         if link not in parsed_links:
             crawl_pages(link)
 
+
 def save_page(page):
-    with urllib.request.urlopen(url) as response, open(f"sample.html", 'wb') as out_file:
+    with urllib.request.urlopen(url) as response, open(f"sample.html",
+                                                       'wb') as out_file:
         shutil.copyfileobj(response, out_file)
+
 
 class LinkExtractor(HTMLParser):
     def handle_starttag(self, tag, attrs):
@@ -28,9 +31,10 @@ class LinkExtractor(HTMLParser):
         global parsed_links
         parsed_links.add(attr.get('href', 'link not available'))
 
+
 if __name__ == "__main__":
-    url = "https://eclipse-phase.wikispaces.com/"
-    base_url = "https://eclipse-phase.wikispaces.com/"
+    url = "http://eclipse-phase.wikia.com/wiki/Local_Sitemap"
+    base_url = "http://eclipse-phase.wikia.com"
     save_page(url)
     parser = LinkExtractor()
     with open("sample.html", "rb") as f:
